@@ -6,7 +6,7 @@ class Database
   end
 
   def load
-    return File.exist?(FILE_NAME) ? YAML.load_file(FILE_NAME) : []
+    File.exist?(FILE_NAME) ? YAML.load_file(FILE_NAME) : []
   end
 
   def select_account(login, password)

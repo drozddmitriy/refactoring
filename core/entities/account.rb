@@ -1,6 +1,6 @@
 class Account
   include AccountHelper
-  attr_accessor :login, :name, :cards, :age, :password, :file_path, :database, :errors
+  attr_accessor :login, :name, :cards, :age, :password, :database, :errors
 
   def initialize
     @errors = []
@@ -15,65 +15,56 @@ class Account
     validate(self)
 
     @cards = []
-   end
+  end
 
-   def destroy
-     accounts = @database.load
-     accounts.reject! { |account| account.login == login }
-     @database.save(accounts)
-   end
+  def destroy
+    accounts = @database.load
+    accounts.reject! { |account| account.login == login }
+    @database.save(accounts)
+  end
 
-   def create_card(type)
+  def create_card(type)
     case type
     when 'usual' then @cards << Usual.new
     when 'capitalist' then @cards << Capitalist.new
     when 'virtual' then @cards << Virtual.new
     end
     save_account
-   end
+  end
 
-   def save_account
-     accounts = @database.load.map { |account| account.login == login ? self : account }
+  def save_account
+    accounts = @database.load.map { |account| account.login == login ? self : account }
 
-     @database.save(accounts)
-   end
+    @database.save(accounts)
+  end
 
-   def save_update(updated_account)
-     accounts = @database.load.map { |account| account.login == login ? updated_account : account }
-
-     @database.save(accounts)
-   end
-
-   def current_card(index)
+  def current_card(index)
     cards[index.to_i - 1]
-   end
+  end
 
-   def destroy_card(answer)
+  def destroy_card(answer)
     cards.delete_at(answer.to_i - 1)
     save_account
-   end
+  end
 
-   def save_recepient(recipient, recipient_card, recipient_balance)
+  def save_recepient(recipient, recipient_card, recipient_balance)
     recipient.cards.each do |card|
-      if card.number == recipient_card.number
-        card.balance = recipient_balance
-      end
+      card.balance = recipient_balance if card.number == recipient_card.number
     end
     recipient
-    end
+  end
 
-    def save_after_transaction(recipient_card, recipient_balance)
-      new_accounts = []
-      @database.load.each do |account|
-         if account.login == login
-          new_accounts.push(self)
-         elsif account.cards.map(&:number).include? recipient_card.number
-          recipient = save_recepient(account, recipient_card, recipient_balance)
-          new_accounts.push(recipient)
-        end
+  def save_after_transaction(recipient_card, recipient_balance)
+    new_accounts = []
+    @database.load.each do |account|
+      if account.login == login
+        new_accounts.push(self)
+      elsif account.cards.map(&:number).include? recipient_card.number
+        recipient = save_recepient(account, recipient_card, recipient_balance)
+        new_accounts.push(recipient)
       end
-
-      @database.save(new_accounts)
     end
 
+    @database.save(new_accounts)
+  end
 end
