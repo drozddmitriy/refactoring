@@ -1,5 +1,7 @@
+require 'i18n'
 require 'pry'
 require 'yaml'
+require_relative 'core/i18n_config'
 require_relative 'core/module/console_helper'
 require_relative 'core/module/account_helper'
 require_relative 'core/entities/account'
