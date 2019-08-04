@@ -57,6 +57,7 @@ module ConsoleHelper
   end
 
   def cards_invalid?(sender_card, recipient_card)
-    sender_card.empty? || recipient_card.empty?
+    binding.pry
+    sender_card.number.empty? || recipient_card.number.empty?
   end
 end

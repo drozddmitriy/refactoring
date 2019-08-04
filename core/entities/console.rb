@@ -161,7 +161,7 @@ class Console
   def send_money
     sender_card = select_sender_card
     recipient_card = select_recipient_card
-    # return if cards_invalid?(sender_card, recipient_card)
+    return if cards_invalid?(sender_card, recipient_card)
     amount = message_input(I18n.t(:input_amount_to_withdraw)).to_i
     return message(I18n.t(:wrong_number)) unless amount.positive?
 
