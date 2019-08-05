@@ -36,7 +36,6 @@ class Console
 
   def load
     return create_the_first_account if @database.load.none?
-
     loop do
       login = message_input(I18n.t(:input_login))
       password = message_input(I18n.t(:input_password))
@@ -85,7 +84,7 @@ class Console
   def show_cards
     return message(I18n.t(:no_active_cards)) if @account.cards.none?
 
-    @account.cards.each { |card| message("Card: #{card.number}, #{card.type}") }
+    @account.cards.each { |card| message("- #{card.number}, #{card.type}") }
   end
 
   def destroy_account

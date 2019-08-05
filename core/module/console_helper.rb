@@ -5,7 +5,7 @@ module ConsoleHelper
 
   def message_input(message = nil)
     puts message
-    gets.chop
+    gets.chomp
   end
 
   def message(message)
@@ -57,7 +57,6 @@ module ConsoleHelper
   end
 
   def cards_invalid?(sender_card, recipient_card)
-    binding.pry
     sender_card.number.empty? || recipient_card.number.empty?
   end
 end

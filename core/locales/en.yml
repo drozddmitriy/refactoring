@@ -28,9 +28,6 @@ en:
   please_input_correct_number: "Please, input correct number of card"
   input_recipient_card: "Enter the recipient card:"
   no_card_with_number: "There is no card with number %{number}\n"
-
-
-
   hello_msg: "Hello, we are RubyG bank!\n
   - If you want to create account - press `create`\n
   - If you want to load account - press `load`\n
