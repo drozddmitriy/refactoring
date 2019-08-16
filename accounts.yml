@@ -1,0 +1,17 @@
+---
+- !ruby/object:Account
+  errors: []
+  database: !ruby/object:Database {}
+  name: Lola
+  age: 44
+  login: lola
+  password: '123456'
+  cards:
+  - !ruby/object:Usual
+    type: usual
+    number: '0508279823808243'
+    balance: 50
+  - !ruby/object:Virtual
+    type: virtual
+    number: '9967982858886771'
+    balance: 112.4
